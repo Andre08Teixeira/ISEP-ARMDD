@@ -1,0 +1,61 @@
+1. Falso. O nível de granularidade em uma tabela de fatos é relevante não apenas do ponto de vista técnico e de projeto, mas também do ponto de vista do conteúdo e dos requisitos de negócios. 
+
+2. Falso. A escolha do nível de granularidade mais elementar nem sempre é a melhor opção. A decisão sobre o nível de granularidade deve levar em consideração vários fatores, incluindo os requisitos específicos do negócio, o desempenho do sistema, a facilidade de manutenção e a relevância das informações para a tomada de decisões.
+Portanto, a escolha do nível de granularidade deve ser equilibrada, considerando diversos aspectos, e não há uma regra única de "mais elementar é sempre melhor". É importante encontrar um equilíbrio que atenda às necessidades específicas do contexto em que a tabela de fatos está sendo utilizada.
+
+3. Falso. Embora a performance seja um fator, a escolha entre chaves de substituição e chaves dos sistemas operacionais também envolve integridade, manutenção e flexibilidade
+
+4. Falso. A existência de atributos como EffectiveDate, ExpiredDate ou IsCurrent é crucial para rastrear mudanças ao longo do tempo em dimensões usando o mecanismo Slowly Changing Dimension (SCD) - Tipo 2, permitindo a manutenção de um histórico preciso.
+
+5.Falso. A implementação plena de um mecanismo de Slowly Changing Dimension (SCD) - Tipo 2 geralmente requer mais do que apenas um atributo "isCurrent". É comum usar atributos adicionais, como EffectiveDate e ExpiredDate, para registrar quando uma versão começa a ser válida e quando expira. Esses atributos permitem rastrear o histórico de alterações de forma mais detalhada e eficiente. O uso exclusivo de "isCurrent" pode limitar a capacidade de manter um histórico preciso das mudanças na dimensão ao longo do tempo.
+
+6. Falso. Um mecanismo de controle de alterações de Slowly Changing Dimension (SCD) - Tipo 3 não é o mais adequado quando um atributo vai sofrer inúmeras alterações ao longo do tempo. O SCD Tipo 3 mantém apenas algumas versões passadas e presentes do atributo, limitando o histórico armazenado. Para lidar com inúmeras alterações, o mais apropriado seria considerar o SCD Tipo 2, que rastreia o histórico completo de todas as alterações, permitindo uma visão mais abrangente e detalhada da evolução dos atributos.
+
+7.
+Falso. Uma dimensão Junk não é utilizada para armazenar combinações possíveis de atributos demográficos. Ela é usada para armazenar atributos que têm um número muito grande de combinações únicas e que não são facilmente associados a fatos. A dimensão Junk ajuda a reduzir a complexidade das tabelas de fatos ao armazenar referências a esses atributos, em vez de repetir os dados em cada linha da tabela de fatos. Portanto, a dimensão Junk não é removida; ela fornece uma abordagem eficiente para lidar com atributos complexos.
+
+8.
+Falso. Uma mini-dimensão não é utilizada para armazenar conjuntos de atributos do tipo textual e do tipo flag (booleano) com o objetivo de removê-los da tabela de fatos. Uma mini-dimensão é uma tabela de dimensão independente que é usada para armazenar informações adicionais sobre certos atributos em uma dimensão principal, geralmente quando esses atributos têm um conjunto pequeno e finito de valores possíveis. Ela ajuda a evitar a repetição de dados na tabela de fatos, mas não tem como objetivo principal a remoção de atributos da tabela de fatos. A mini-dimensão é usada para fornecer detalhes adicionais e manter a integridade referencial no modelo de dados.
+
+9. Falso. A chave primária numa tabela de factos é geralmente uma chave artificial, não diretamente composta pelo conjunto de chaves estrangeiras.
+
+10. Verdadeiro. Uma tabela de fatos pode armazenar três tipos de medidas:
+
+**Aditivas:** Medidas para as quais a operação de soma faz sentido. Exemplos incluem receita, quantidade vendida, etc.
+
+**Semi-aditivas:** Medidas para as quais a soma é significativa em alguns contextos, mas não em todos. Por exemplo, saldo de estoque pode ser somado ao nível de armazém, mas não faz sentido somar globalmente.
+
+**Não aditivas:** Medidas para as quais a operação de soma não tem significado. Por exemplo, média, percentual, etc. Essas medidas requerem abordagens diferentes durante a agregação.
+
+11. Falso. Na extração de dados estática, existem estratégias mais eficientes do que a força bruta para comparar e atualizar registros no armazém de dados. Técnicas como a utilização de chaves de controle (como hashes) e a comparação incremental de dados (deltas) podem ser implementadas para identificar e atualizar apenas os registos alterados desde a última extração. Isso reduz a carga de processamento, tornando o processo mais eficiente e rápido.
+
+12. Verdadeiro. Kimball (Bus architecture) e Inmon (CIF architecture) concordam que o maior poder dos dados se encontra no nível mais atômico. Ambos defendem a importância de ter dados granulares, detalhados e de alta qualidade para suportar análises complexas e oferecer flexibilidade na tomada de decisões no ambiente de data warehousing.
+
+13. Verdadeiro. A consideração do aspeto temporal é crucial na definição da chave primária da tabela de fatos em um armazém de dados. O tempo é uma dimensão crítica em muitas análises e consultas de dados, e, portanto, é comum incluir elementos temporais na chave primária para garantir que o histórico temporal seja corretamente capturado. Isso facilita consultas que envolvem análises ao longo do tempo e garante a integridade temporal dos dados armazenados. O desenho apropriado da chave primária e índices leva em conta a natureza temporal das consultas realizadas no ambiente de data warehousing.
+
+14. Falso. Numa tabela de factos, é comum ter mais de um índice além do índice inerente à chave primária. A criação de índices adicionais em colunas que são frequentemente utilizadas em cláusulas WHERE ou em operações de junção pode melhorar significativamente o desempenho das consultas. Portanto, a presença de índices adicionais, além do índice da chave primária, é uma prática comum para otimizar o acesso aos dados durante as operações de consulta.
+
+
+15. Falso. No processo de carregamento de dados utilizando o componente Slowly Changing Dimension no Integration Services Project (SSIS), a business key pode corresponder a mais de um atributo. A business key é uma combinação de atributos que identifica exclusivamente um registo na dimensão. Essa combinação pode envolver mais de um atributo, dependendo da necessidade de negócios e da estrutura da dimensão. O importante é que a business key seja única para cada registo na dimensão.
+
+16. Falso. No SQL Server, a definição de índices do tipo Bitmap não é diretamente suportada.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
